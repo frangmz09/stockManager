@@ -69,4 +69,5 @@ public class ProductController {
         repo.deleteById(id);
         return ResponseEntity.noContent().build();
     }
+
 }
