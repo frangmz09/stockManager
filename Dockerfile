@@ -10,6 +10,18 @@ RUN mvn clean package -DskipTests
 # Etapa 2: Runtime
 FROM eclipse-temurin:17-jdk-alpine
 WORKDIR /app
+
+# Copiar jar de la app
 COPY --from=build /app/target/stockManager-0.0.1-SNAPSHOT.jar app.jar
+
+# Copiar agente New Relic
+COPY newrelic /app/newrelic
+
+# Variables de entorno (pueden ser sobreescritas en Render)
+ENV NEW_RELIC_APP_NAME=${NEW_RELIC_APP_NAME}
+ENV NEW_RELIC_LICENSE_KEY=${NEW_RELIC_LICENSE_KEY}
+
 EXPOSE 8080
-ENTRYPOINT ["java", "-jar", "app.jar"]
+
+# Ejecutar app con New Relic
+ENTRYPOINT ["java", "-javaagent:/app/newrelic/newrelic.jar", "-jar", "app.jar"]
