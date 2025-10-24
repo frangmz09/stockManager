@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
+import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.web.servlet.MockMvc;
 import up.devops.fgd.stockManager.model.Product;
 import up.devops.fgd.stockManager.repository.ProductRepository;
@@ -15,7 +16,8 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @SpringBootTest
 @AutoConfigureMockMvc
-class ProductControllerIntegrationTest {
+@ActiveProfiles("test")
+public class ProductControllerIntegrationTest {
 
     @Autowired
     private MockMvc mockMvc;
